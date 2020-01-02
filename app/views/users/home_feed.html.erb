@@ -1,0 +1,68 @@
+<div class="row">
+    <div class="col-md-4">
+        <div class="card mb-3">
+            <div class="card-body text-center">
+                <%= gravatar_for current_user %>
+
+                <h1><%= current_user.name %></h1>
+                <%= current_user.email %>
+
+                <hr>
+
+                <div class="row">
+                    <div class="col">
+                        <h4 class="font-weight-bold text-muted m-0">
+                            <%= link_to current_user.microposts.count, current_user %>
+                        </h4>
+                        <small><%= "micropost".pluralize(current_user.microposts.count) %></small>
+                    </div>
+                    <div class="col">
+                        <h4 class="font-weight-bold text-muted m-0">40</h4>
+                        <small>followers</small>
+                    </div>
+                    <div class="col">
+                        <h4 class="font-weight-bold text-muted m-0">40</h4>
+                        <small>following</small>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <%= form_for(@micropost) do |f| %>
+                    <%= render 'shared/error_messages', object: f.object %>
+
+                    <div class="form-group">
+                        <%= f.text_area :content, class: "form-control", placeholder: "Share your thoughts...", rows: 5 %>
+                    </div>
+
+                    <div class="form-group">
+                        <%= f.file_field :picture, accept: "image/jpeg, image/gif, image/png", class: "mt-2" %>
+                    </div>
+
+                    <%= f.submit "Post", class: "btn btn-primary btn-block"%>
+                <% end %>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <h4>Feed</h3>
+
+                <% if @microposts.any? %>
+                    <!-- rendering a collection: micropost/_micropost.html.erb -->
+                    <ul class="list-unstyled">
+                        <%= render @microposts %>
+                    </ul>
+                <% else %>
+                    <div class="text-muted">Nothing to show</div>
+                <% end %>
+            </div>
+
+            <div class="card-footer paginate text-center">
+                <!-- Pass the collection to this method, because the controller name for this is not microposts, but static_pages -->
+                <%= will_paginate @microposts if @microposts.any? %>
+            </div>
+        </div>
+    </div>
+</div>
