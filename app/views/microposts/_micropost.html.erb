@@ -1,0 +1,25 @@
+<li class="media py-3 px-2 border-top">
+    <!-- belongs_to :user -->
+    <div class="mr-2">
+        <%= link_to gravatar_for(micropost.user, size: 60), micropost.user %>
+    </div>
+
+    <div class="media-body">
+        <h5><%= link_to micropost.user.name, micropost.user %></h5>
+        <div><%= micropost.content %></div>
+        
+        <% if micropost.picture? %>
+            <div>
+                <%= image_tag micropost.picture.url, class: "mw-100" %>
+            </div>
+        <% end %>
+
+        <small class="text-muted">Posted <%= time_ago_in_words(micropost.created_at) %> ago</small>
+    </div>
+
+    <%= link_to micropost, method: :delete,
+                data: { confirm: "Are you sure?" },
+                class: "float-right" do %>
+        <i class="fa fa-times text-muted"></i>
+    <% end %>
+</li>

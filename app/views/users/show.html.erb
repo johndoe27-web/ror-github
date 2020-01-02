@@ -1,0 +1,33 @@
+<div class="jumbotron p-3 px-5">
+    <div class="row">
+        <div class="col-md-10">  
+            <div class="media">
+                <div class="mr-3 align-self-center">
+                    <%= gravatar_for @user, size: 120 %>
+                </div>
+
+                <div class="media-body my-auto">
+                    <h1><%= @user.name %></h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2 text-center">
+            <strong style="font-size: 3rem;"><%= @microposts.count %></strong><br>
+            <span class="text-muted"><%= "microposts".pluralize(@microposts.count) %></span>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <% if @microposts.any? %>
+            <ul class="list-unstyled">
+                <%= render @microposts %>
+            </ul>
+
+            <div class="paginate text-center">
+                <%= will_paginate @microposts %>
+            </div>
+        <% end %>
+    </div>
+</div>
